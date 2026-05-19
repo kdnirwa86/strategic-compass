@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Activity, AlertTriangle, ArrowUpRight, Bell, Brain, Briefcase, CheckCircle2,
-  ChevronRight, Compass, Download, FileText, Filter, Globe, LineChart, MapPin,
+  ChevronRight, Compass, Download, FileText, Filter, LineChart, MapPin,
   Network, Radar, Send, Sparkles, Target, TrendingUp, Zap, Search, Layers,
   GitBranch, ShieldAlert, Clock, Eye,
 } from "lucide-react";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
