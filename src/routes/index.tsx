@@ -189,6 +189,7 @@ function CenterCanvas() {
     <main className="bg-background/30 overflow-y-auto scrollbar-thin">
       <div className="p-5 space-y-5">
         <CanvasHeader />
+        <KpiCards />
         <Heatmap />
         <div className="grid grid-cols-2 gap-5">
           <TrendIntelligence />
@@ -225,6 +226,62 @@ function ChipBtn({ icon: Icon, label, active }: { icon: React.ComponentType<{ cl
     <button className={`flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-md border transition ${active ? "bg-primary/15 border-primary/40 text-primary" : "bg-card/40 border-border hover:border-primary/40"}`}>
       <Icon className="size-3.5" /> {label}
     </button>
+  );
+}
+
+/* ------------ KPI CARDS ------------ */
+function KpiCards() {
+  const cards = [
+    { label: "Total Opportunity Size", value: "$4.82B", delta: "+18.4%", sub: "Addressable whitespace · 24mo", trend: "up", accent: "var(--primary)", icon: Target, spark: [12, 18, 16, 24, 22, 30, 34, 42, 48, 56, 62, 71] },
+    { label: "Category Growth", value: "+34.2%", delta: "+6.1 pts", sub: "YoY momentum vs. category", trend: "up", accent: "var(--accent)", icon: TrendingUp, spark: [20, 22, 21, 28, 32, 30, 38, 44, 41, 52, 58, 64] },
+    { label: "Active Signals", value: "12,847", delta: "+2,193", sub: "TikTok · Amazon · Patents · 7d", trend: "up", accent: "var(--chart-5)", icon: Activity, spark: [40, 38, 46, 44, 52, 50, 60, 58, 66, 70, 78, 84] },
+    { label: "Whitespace Score", value: "91 / 100", delta: "+9", sub: "Gut-friendly indulgence cluster", trend: "up", accent: "var(--warning)", icon: Sparkles, spark: [50, 54, 52, 60, 64, 62, 70, 74, 78, 82, 88, 91] },
+  ];
+  return (
+    <section className="grid grid-cols-4 gap-3">
+      {cards.map((c) => {
+        const Icon = c.icon;
+        const max = Math.max(...c.spark);
+        const min = Math.min(...c.spark);
+        const pts = c.spark.map((v, i) => {
+          const x = (i / (c.spark.length - 1)) * 100;
+          const y = 28 - ((v - min) / (max - min || 1)) * 24 - 2;
+          return `${x},${y}`;
+        }).join(" ");
+        return (
+          <div key={c.label} className="relative rounded-xl border border-border bg-card/50 p-4 overflow-hidden group hover:border-primary/40 transition">
+            <div className="absolute inset-x-0 top-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${c.accent}, transparent)` }} />
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-2">
+                <div className="size-7 rounded-md grid place-items-center" style={{ background: `color-mix(in oklab, ${c.accent} 18%, transparent)`, color: c.accent }}>
+                  <Icon className="size-3.5" />
+                </div>
+                <div className="text-[10px] mono uppercase tracking-widest text-muted-foreground">{c.label}</div>
+              </div>
+              <span className="flex items-center gap-0.5 text-[10px] mono px-1.5 py-0.5 rounded" style={{ background: `color-mix(in oklab, ${c.accent} 14%, transparent)`, color: c.accent }}>
+                <ArrowUpRight className="size-3" /> {c.delta}
+              </span>
+            </div>
+            <div className="mt-3 flex items-end justify-between gap-2">
+              <div>
+                <div className="text-[26px] font-semibold tracking-tight leading-none" style={{ textShadow: `0 0 24px color-mix(in oklab, ${c.accent} 30%, transparent)` }}>{c.value}</div>
+                <div className="text-[10.5px] text-muted-foreground mt-1.5">{c.sub}</div>
+              </div>
+              <svg viewBox="0 0 100 28" preserveAspectRatio="none" className="w-20 h-8 shrink-0">
+                <defs>
+                  <linearGradient id={`g-${c.label}`} x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor={c.accent} stopOpacity="0.5" />
+                    <stop offset="100%" stopColor={c.accent} stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <polyline points={pts} fill="none" stroke={c.accent} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <polygon points={`0,28 ${pts} 100,28`} fill={`url(#g-${c.label})`} />
+              </svg>
+            </div>
+          </div>
+        );
+      })}
+    </section>
   );
 }
 
