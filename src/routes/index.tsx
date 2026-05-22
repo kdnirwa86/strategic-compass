@@ -614,15 +614,6 @@ function Reason({ label, text, accent }: { label: string; text: string; accent?:
 function RightPanel() {
   return (
     <aside className="bg-sidebar/60 backdrop-blur-xl overflow-y-auto scrollbar-thin">
-      <SectionHead icon={Briefcase} title="Executive Summary" />
-      <div className="px-3 pb-3 space-y-1.5">
-        <Kv k="Emerging Opportunities" v="7" />
-        <Kv k="Fastest Growing Trend" v="Functional indulgence" />
-        <Kv k="Largest TAM" v="Gut-friendly desserts" />
-        <Kv k="Biggest Threat" v="Pepsi health expansion" />
-        <Kv k="Avg Whitespace Window" v="16 months" />
-      </div>
-
       <SectionHead icon={ShieldAlert} title="Threat Assessment" />
       <div className="px-3 pb-3">
         <div className="rounded-lg border border-warning/30 bg-warning/5 p-3">
