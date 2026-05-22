@@ -189,7 +189,7 @@ function CenterCanvas() {
     <main className="bg-background/30 overflow-y-auto scrollbar-thin">
       <div className="p-5 space-y-5">
         <CanvasHeader />
-        <KpiCards />
+        <ExecutiveOverview />
         <Heatmap />
         <div className="grid grid-cols-2 gap-5">
           <TrendIntelligence />
@@ -226,6 +226,49 @@ function ChipBtn({ icon: Icon, label, active }: { icon: React.ComponentType<{ cl
     <button className={`flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-md border transition ${active ? "bg-primary/15 border-primary/40 text-primary" : "bg-card/40 border-border hover:border-primary/40"}`}>
       <Icon className="size-3.5" /> {label}
     </button>
+  );
+}
+
+/* ------------ EXECUTIVE OVERVIEW (KPI + Summary combined) ------------ */
+function ExecutiveOverview() {
+  const summary = [
+    { k: "Emerging Opportunities", v: "7" },
+    { k: "Fastest Growing Trend", v: "Functional indulgence" },
+    { k: "Largest TAM", v: "Gut-friendly desserts" },
+    { k: "Biggest Threat", v: "Pepsi health expansion" },
+    { k: "Avg Whitespace Window", v: "16 months" },
+  ];
+  return (
+    <section className="relative rounded-2xl border border-border bg-card/50 overflow-hidden glow-primary">
+      <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, var(--primary), var(--accent), transparent)" }} />
+      <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-background/30">
+        <div className="flex items-center gap-2">
+          <Briefcase className="size-3.5 text-primary" />
+          <div className="text-[11px] font-semibold uppercase tracking-widest">Executive Overview</div>
+          <span className="text-[10px] mono uppercase tracking-widest text-muted-foreground ml-2">KPIs · Summary</span>
+        </div>
+        <span className="flex items-center gap-1.5 text-[10px] mono uppercase tracking-widest text-muted-foreground">
+          <span className="size-1.5 rounded-full bg-primary pulse-dot" /> Live · synced 14s ago
+        </span>
+      </div>
+      <div className="p-4">
+        <KpiCards />
+        <div className="mt-4 pt-4 border-t border-border/70">
+          <div className="flex items-center gap-2 mb-2.5">
+            <div className="text-[10px] mono uppercase tracking-widest text-muted-foreground">Executive Summary</div>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+          <div className="grid grid-cols-5 gap-3">
+            {summary.map((s) => (
+              <div key={s.k} className="rounded-lg border border-border bg-background/40 px-3 py-2.5">
+                <div className="text-[9.5px] mono uppercase tracking-widest text-muted-foreground leading-tight">{s.k}</div>
+                <div className="text-[13px] font-medium mt-1 leading-snug">{s.v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -571,15 +614,6 @@ function Reason({ label, text, accent }: { label: string; text: string; accent?:
 function RightPanel() {
   return (
     <aside className="bg-sidebar/60 backdrop-blur-xl overflow-y-auto scrollbar-thin">
-      <SectionHead icon={Briefcase} title="Executive Summary" />
-      <div className="px-3 pb-3 space-y-1.5">
-        <Kv k="Emerging Opportunities" v="7" />
-        <Kv k="Fastest Growing Trend" v="Functional indulgence" />
-        <Kv k="Largest TAM" v="Gut-friendly desserts" />
-        <Kv k="Biggest Threat" v="Pepsi health expansion" />
-        <Kv k="Avg Whitespace Window" v="16 months" />
-      </div>
-
       <SectionHead icon={ShieldAlert} title="Threat Assessment" />
       <div className="px-3 pb-3">
         <div className="rounded-lg border border-warning/30 bg-warning/5 p-3">
