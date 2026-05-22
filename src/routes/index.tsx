@@ -189,7 +189,7 @@ function CenterCanvas() {
     <main className="bg-background/30 overflow-y-auto scrollbar-thin">
       <div className="p-5 space-y-5">
         <CanvasHeader />
-        <KpiCards />
+        <ExecutiveOverview />
         <Heatmap />
         <div className="grid grid-cols-2 gap-5">
           <TrendIntelligence />
